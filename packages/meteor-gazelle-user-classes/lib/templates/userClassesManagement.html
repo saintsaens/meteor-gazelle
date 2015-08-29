@@ -1,11 +1,23 @@
 <template name="userClassesManagement">
   {{#if userClassesExist}}
     {{#each userClasses}}
-      {{ title }}
+      {{> userClassManage this}}
     {{/each}}
   {{ else }}
-    No user classes have been created.
+      No user classes have been created.
   {{/if }}
   {{> quickForm schema=userClassCreateForm id="user-class-create" type="method" meteormethod='userClasses/insert'}}
 </template>
 
+<template name="userClassManage">
+  {{#autoForm id=autoFormId doc=this schema=userClassForm type=autoFormType meteormethod="userClasses/update"}}
+    {{> afQuickField name="title"}}
+    {{> afQuickField name="shortTitle"}}
+    {{#if isEditing }}
+        <button type="submit" class="user-class-save">Save</button>
+        <button class="user-class-delete">Delete</button>
+    {{ else }}
+        <button class="user-class-edit">Edit</button>
+    {{/if}}
+  {{/autoForm}}
+</template>

@@ -20,8 +20,10 @@ Package.onUse(function (api) {
   ], 'client');
 
   api.addFiles([
+    'lib/registered-roles.js'
   ], 'server');
 
+  api.export('RegisteredRoles', 'server');
 
 });
 
