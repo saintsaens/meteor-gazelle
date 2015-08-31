@@ -1,0 +1,13 @@
+<template name="userClassManage">
+  {{#autoForm id=autoFormId doc=this schema=userClassForm type=autoFormType meteormethod="userClasses/update"}}
+    {{> afQuickField name="title"}}
+    {{> afQuickField name="shortTitle"}}
+    {{#if isEditing }}
+        <button type="submit" class="user-class-save">Save</button>
+        <button class="user-class-delete">Delete</button>
+      {{> roles }}
+    {{ else }}
+        <button class="user-class-edit">Edit</button>
+    {{/if}}
+  {{/autoForm}}
+</template>

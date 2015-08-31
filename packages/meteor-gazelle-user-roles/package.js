@@ -1,7 +1,7 @@
 Package.describe({
-  name: 'meteor-gazelle:user-class-permissions',
+  name: 'meteor-gazelle:user-roles',
   version: '0.0.1',
-  summary: 'User permissions',
+  summary: 'User Roles',
   documentation: 'README.md',
   git: 'https://github.com/meteor-gazelle/meteor-gazelle.git'
 });
@@ -17,10 +17,13 @@ Package.onUse(function (api) {
   ]);
 
   api.addFiles([
+    'lib/templates/roles.html',
+    'lib/templates/roles.js'
   ], 'client');
 
   api.addFiles([
-    'lib/registered-roles.js'
+    'lib/registered-roles.js',
+    'lib/publications.js'
   ], 'server');
 
   api.export('RegisteredRoles', 'server');

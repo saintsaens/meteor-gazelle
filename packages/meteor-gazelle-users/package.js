@@ -14,11 +14,8 @@ Package.onUse(function (api) {
   ]);
 
   api.addFiles([
-    'lib/users.js',
-    'lib/methods.js'
-  ], ['client', 'server']);
-
-  api.export(['User']);
+    'lib/model.js',
+  ]);
 });
 
 Package.onTest(function (api) {

@@ -1,10 +1,5 @@
 if (Meteor.isServer) {
   Accounts.onCreateUser(function (options, user) {
-    User.insert({
-      _id: user._id,
-      username: user.username,
-      enabled: true
-    });
     return user;
   });
 }
@@ -20,6 +15,7 @@ AccountsTemplates.addField({
   _id: 'username',
   type: 'text',
   required: true,
+  /*
   func: function (value) {
     var self = this;
     if (Meteor.isClient) {
@@ -35,4 +31,5 @@ AccountsTemplates.addField({
       return Meteor.call('userCanLogin', value);
     }
   }
+  */
 });

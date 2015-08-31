@@ -19,7 +19,7 @@ Package.onUse(function (api) {
   api.imply(packages);
 
   api.addFiles([
-    'lib/client/templates/login.html'
+    'lib/templates/login.html'
   ], 'client');
 
   api.addFiles([

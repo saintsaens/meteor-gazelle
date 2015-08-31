@@ -14,5 +14,6 @@ Meteor.methods({
       password: doc.password,
       email: doc.email
     });
+    Gazelle.callbacks.run('createNewUser', user, options);
   }
 });

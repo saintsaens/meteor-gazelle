@@ -29,7 +29,8 @@ Package.onUse(function (api) {
     'jagi:astronomy-timestamp-behavior',
     'jagi:astronomy-validators',
     'jagi:astronomy-behaviors',
-    'msavin:mongol'
+    'msavin:mongol',
+    'alanning:roles@1.2.11'
   ];
 
   api.use(packages);
@@ -37,6 +38,7 @@ Package.onUse(function (api) {
 
   api.addFiles([
     'lib/gazelle.js',
+    'lib/callbacks.js',
     'lib/collections.js'
   ], ['client', 'server']);
 

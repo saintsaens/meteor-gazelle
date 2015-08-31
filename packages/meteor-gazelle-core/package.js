@@ -11,8 +11,8 @@ Package.onUse(function (api) {
 
   var packages = [
     'meteor-gazelle:lib',
-    'meteor-gazelle:users',
     'meteor-gazelle:accounts',
+    'meteor-gazelle:users',
     'meteor-gazelle:header',
     'meteor-gazelle:footer',
   ];

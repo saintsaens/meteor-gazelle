@@ -10,7 +10,8 @@ Package.onUse(function (api) {
   api.versionsFrom('1.1.0.2');
 
   api.use([
-    'meteor-gazelle:core'
+    'meteor-gazelle:core',
+    'meteor-gazelle:user-roles'
   ]);
 
   api.addFiles([
@@ -21,11 +22,14 @@ Package.onUse(function (api) {
 
   api.addFiles([
     'lib/templates/userClassesManagement.html',
-    'lib/templates/userClassesManagement.js'
+    'lib/templates/userClassesManagement.js',
+    'lib/templates/userClassManage.html',
+    'lib/templates/userClassManage.js'
   ], 'client');
 
   api.addFiles([
-    'lib/publications.js'
+    'lib/publications.js',
+    'lib/callbacks.js'
   ], 'server');
 
 });

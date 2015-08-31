@@ -13,3 +13,5 @@ RegisteredRoles = {
     }
   }
 };
+
+RegisteredRoles.register('dummy', ['role a', 'role b']);

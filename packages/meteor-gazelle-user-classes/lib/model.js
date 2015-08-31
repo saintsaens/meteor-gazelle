@@ -7,16 +7,20 @@ UserClass = Astro.Class({
   'collection': UserClasses,
   fields: {
     'title': {
-      type: 'string',
+      type: 'string'
     },
     'shortTitle': {
-      type: 'string',
+      type: 'string'
     },
     'rank': {
       type: 'number'
     },
-    'secondary': {
+    'isSecondary': {
+      type: 'boolean'
+    },
+    'isDefaultClass': {
       type: 'boolean',
+      deault: false
     },
     // TODO(ajax) How to validate permissions are valid?
     'permissions.$': {
@@ -31,18 +35,19 @@ UserClass = Astro.Class({
   validators: {
     'title': Validators.required(),
     'shortTitle': Validators.required(),
-    'secondary': Validators.required()
+    'isSecondary': Validators.required()
   },
   behaviors: ['timestamp']
 });
 
 
-saveUserClass = function(userClass, doc) {
+var saveUserClass = function(userClass, doc) {
   userClass.set('title', doc.title);
   userClass.set('shortTitle', doc.shortTitle);
-  userClass.set('secondary', false);
+  userClass.set('isSecondary', false);
   userClass.save();
 };
+
 
 Meteor.methods({
   'userClasses/insert': function(doc) {
