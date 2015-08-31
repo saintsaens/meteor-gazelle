@@ -15,7 +15,6 @@ Package.onUse(function (api) {
     'aldeed:collection2',
     'aldeed:simple-schema',
     'iron:router',
-    'dburles:collection-helpers',
     'accounts-password',
     'zimme:iron-router-auth',
     'reactive-var',
@@ -30,7 +29,8 @@ Package.onUse(function (api) {
     'jagi:astronomy-validators',
     'jagi:astronomy-behaviors',
     'msavin:mongol',
-    'alanning:roles@1.2.11'
+    'alanning:roles@1.2.11',
+    'matb33:collection-hooks'
   ];
 
   api.use(packages);

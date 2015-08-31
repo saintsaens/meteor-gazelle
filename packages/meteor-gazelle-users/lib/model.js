@@ -5,11 +5,10 @@ User = Astro.Class({
     emails: 'array',
     services: 'object',
     createdAt: 'date'
-  },
-  events: {
-    afterinsert: function () {
-      console.log('after insert called');
-      Gazelle.callbacks.run('userAfterInsert', this);
-    }
   }
+});
+
+Meteor.users.after.insert(function (userId, doc) {
+  console.log('hook hit');
+  Gazelle.callbacks.run('usersAfterInsert', doc);
 });
