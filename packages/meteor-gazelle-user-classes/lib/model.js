@@ -22,20 +22,24 @@ UserClass = Astro.Class({
       type: 'boolean',
       deault: false
     },
-    // TODO(ajax) How to validate permissions are valid?
-    'permissions.$': {
+    // TODO(ajax) How to validate roles are valid?
+    'roles': {
       type: 'array',
       default: []
-    },
-    'permissions.$': {
-      // (ajax) Should this be string or object?
-      type: 'string'
     }
   },
   validators: {
     'title': Validators.required(),
     'shortTitle': Validators.required(),
-    'isSecondary': Validators.required()
+    'isSecondary': Validators.required(),
+    'roles': function(fieldValue, fieldName) {
+      console.log("roles validator called");
+      var result = true;
+      if (Meteor.isServer) {
+        console.log(Roles.isValidRole(fieldValue));
+      }
+      return result;
+    }
   },
   behaviors: ['timestamp']
 });
@@ -67,3 +71,5 @@ Meteor.methods({
     UserClasses.remove(docId);
   }
 });
+
+

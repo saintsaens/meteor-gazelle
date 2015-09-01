@@ -10,8 +10,8 @@ Package.onUse(function (api) {
   api.versionsFrom('1.1.0.2');
 
   api.use([
-    'meteor-gazelle:core',
-    'meteor-gazelle:user-roles'
+    'meteor-gazelle:lib',
+    'meteor-gazelle:users'
   ]);
 
   api.addFiles([
@@ -28,8 +28,8 @@ Package.onUse(function (api) {
   ], 'client');
 
   api.addFiles([
-    'lib/publications.js',
-    'lib/callbacks.js'
+    'lib/callback.js',
+    'lib/publications.js'
   ], 'server');
 
 });

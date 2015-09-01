@@ -1,4 +1,4 @@
-var setDefaultUserClass = function(user) {
+var setDefaultRoles = function(user) {
 	var superUserRole = 'super-user';
   var role = Meteor.roles.findOne({name: superUserRole});
   if (!role) {
@@ -7,4 +7,4 @@ var setDefaultUserClass = function(user) {
   }
 };
 
-Gazelle.callbacks.add('usersAfterInsert', setDefaultUserClass);
+Gazelle.callbacks.add('usersAfterInsert', setDefaultRoles);

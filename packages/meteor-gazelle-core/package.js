@@ -15,6 +15,8 @@ Package.onUse(function (api) {
     'meteor-gazelle:users',
     'meteor-gazelle:header',
     'meteor-gazelle:footer',
+    'meteor-gazelle:user-roles',
+    'meteor-gazelle:user-classes'
   ];
 
   api.use(packages);
@@ -25,12 +27,6 @@ Package.onUse(function (api) {
     'lib/site-name.js',
     'lib/layout.html'
   ], 'client');
-
-  api.addFiles([
-    'lib/config.js'
-  ], ['client', 'server']);
-
-  api.export('ApplicationController');
 
 });
 

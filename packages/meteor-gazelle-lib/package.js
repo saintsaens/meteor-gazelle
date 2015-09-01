@@ -39,11 +39,13 @@ Package.onUse(function (api) {
   api.addFiles([
     'lib/gazelle.js',
     'lib/callbacks.js',
-    'lib/collections.js'
-  ], ['client', 'server']);
+    'lib/collections.js',
+    'lib/controllers.js'
+  ]);
 
   api.export([
-    'Gazelle'
+    'Gazelle',
+    'ApplicationController'
   ]);
 });
 
