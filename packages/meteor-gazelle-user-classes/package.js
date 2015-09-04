@@ -21,10 +21,10 @@ Package.onUse(function (api) {
   ]);
 
   api.addFiles([
-    'lib/templates/userClassesManagement.html',
-    'lib/templates/userClassesManagement.js',
-    'lib/templates/userClassManage.html',
-    'lib/templates/userClassManage.js'
+    'lib/templates/userClasses.html',
+    'lib/templates/userClasses.js',
+    'lib/templates/userClass.html',
+    'lib/templates/userClass.js'
   ], 'client');
 
   api.addFiles([

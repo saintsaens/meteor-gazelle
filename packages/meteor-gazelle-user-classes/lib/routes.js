@@ -1,19 +1,19 @@
 UserClassesController = ApplicationController.extend({
   waitOn: function () {
-    return Meteor.subscribe('user-classes-management');
+    Meteor.subscribe('user-classes-management');
   },
   data: function () {
     return {
       userClasses: UserClasses.find()
     }
   },
-  userClassesManagement: function () {
-    this.render('userClassesManagement');
+  userClasses: function () {
+    this.render('userClasses');
   },
 });
 
 // TOOD(ajax) Permission check to only allow users with correct perms
 Router.route('/user-classes', {
-  name: 'userClassesManagement',
+  name: 'userClasses',
   controller: UserClassesController,
 });

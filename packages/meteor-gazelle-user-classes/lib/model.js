@@ -57,6 +57,7 @@ Meteor.methods({
   'userClasses/insert': function(doc) {
     //TODO(ajax) Be sure set all required values
     check(doc, Forms.userClass);
+    console.log(doc);
     var userClass = new UserClass();
     saveUserClass(userClass, doc);
   },
