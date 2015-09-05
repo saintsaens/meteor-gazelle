@@ -1,8 +1,21 @@
+var setFormTypeAndMethod = function(template) {
+  var meteorMethod = "userClasses/insert";
+  var formType = "method";
+  if (template.isLocked.get()) {
+    formType = "readonly";
+  } else if (template.isUpdateForm) {
+    formType = "method-update";
+    meteorMethod = "userClasses/update";
+  }
+  template.formType = new ReactiveVar(formType);
+  template.meteorMethod = new ReactiveVar(meteorMethod);
+};
+
 Template.userClass.onCreated(function () {
   this.isUpdateForm = this.data.hasOwnProperty('_id') ? true : false;
   this.formId = this.isUpdateForm ? 'user-class-update-' + this.data._id : 'user-class-create';
   this.isLocked = new ReactiveVar(this.isUpdateForm);
-  this.formType = new ReactiveVar("method");
+  setFormTypeAndMethod(this);
 });
 
 Template.userClass.onRendered(function () {
@@ -13,35 +26,20 @@ Template.userClass.onDestroyed(function () {
 
 });
 
-var formSchema = new SimpleSchema({
-  title: {
-    type: String,
-    label: 'The user class title'
-  },
-  shortTitle: {
-    type: String,
-    label: 'The shortened title of the user class.'
-  },
-  isDefault: {
-    type: Boolean,
-    label: 'Is this a default class that new user\'s get?',
-    defaultValue: false
-  }
-});
-
 Template.userClass.helpers({
   isUpdateForm: function () {
     return Template.instance().isUpdateForm;
   },
   isLocked: function() {
-    return Template.instance().isLocked;
+    return Template.instance().isLocked.get();
   },
   formAttributes: function () {
     return {
       id: Template.instance().formId,
       doc: Template.instance().isUpdateForm ? this : null,
-      //type: Template.instance().isEditing ?,
-      schema: formSchema
+      type: Template.instance().formType.get(),
+      meteormethod: Template.instance().meteorMethod.get(),
+      schema: Forms.userClass
     };
   }
 });
@@ -49,10 +47,10 @@ Template.userClass.helpers({
 Template.userClass.events({
   'click .user-class-edit': function (event, template) {
     event.preventDefault();
-    if (template.isEditing.get()) {
-      template.isEditing.set(false)
+    if (template.isLocked().get()) {
+      template.isLocked.set(false)
     } else {
-      template.isEditing.set(true)
+      template.isLocked.set(true)
     }
   }
 });
