@@ -1,10 +1,10 @@
 <template name="userClasses">
   {{#if userClassesExist}}
     {{#each userClasses}}
-      {{> userClass this}}
+      {{> userClass type='edit' doc=this}}
     {{/each}}
   {{ else }}
       No user classes have been created.
   {{/if }}
-  {{> userClass }}
+  {{> userClass type='create'}}
 </template>

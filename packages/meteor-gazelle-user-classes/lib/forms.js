@@ -3,15 +3,29 @@ Forms = {};
 Forms.userClass = new SimpleSchema({
   title: {
     type: String,
-    label: 'The user class title'
+    label: 'The class title'
   },
   shortTitle: {
     type: String,
-    label: 'The shortened title of the user class.'
+    label: 'The short title'
+  },
+  description: {
+    type: String,
+    label: 'The class description'
   },
   isDefault: {
     type: Boolean,
-    label: 'Is this a default class that new user\'s get?',
+    label: 'This is  a default class',
+    defaultValue: false
+  },
+  isSecondary: {
+    type: Boolean,
+    label: 'This is a secondary class',
+    defaultValue: false
+  },
+  isStaff: {
+    type: Boolean,
+    label: 'This class is visible on the staff page',
     defaultValue: false
   }
 });

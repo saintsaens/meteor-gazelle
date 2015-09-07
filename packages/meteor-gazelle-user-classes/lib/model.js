@@ -3,36 +3,45 @@
 UserClasses = new Mongo.Collection('userClasses');
 
 UserClass = Astro.Class({
-  'name': 'UserClass',
-  'collection': UserClasses,
+  name: 'UserClass',
+  collection: UserClasses,
   fields: {
-    'title': {
+    title: {
       type: 'string'
     },
-    'shortTitle': {
+    shortTitle: {
       type: 'string'
     },
-    'rank': {
+    description: {
+      type: 'string'
+    },
+    rank: {
       type: 'number'
     },
-    'isSecondary': {
+    isSecondary: {
       type: 'boolean'
     },
-    'isDefaultClass': {
+    isDefault: {
       type: 'boolean',
-      deault: false
+      default: false
+    },
+    isStaff: {
+      type: 'boolean',
+      defaukt: false
     },
     // TODO(ajax) How to validate roles are valid?
-    'roles': {
+    roles: {
       type: 'array',
       default: []
     }
   },
   validators: {
-    'title': Validators.required(),
-    'shortTitle': Validators.required(),
-    'isSecondary': Validators.required(),
-    'roles': function(fieldValue, fieldName) {
+    title: Validators.required(),
+    shortTitle: Validators.required(),
+    description: Validators.required(),
+    isSecondary: Validators.required(),
+    isStaff: Validators.required(),
+    roles: function(fieldValue, fieldName) {
       console.log("roles validator called");
       var result = true;
       if (Meteor.isServer) {
@@ -44,20 +53,19 @@ UserClass = Astro.Class({
   behaviors: ['timestamp']
 });
 
-
 var saveUserClass = function(userClass, doc) {
   userClass.set('title', doc.title);
   userClass.set('shortTitle', doc.shortTitle);
-  userClass.set('isSecondary', false);
+  userClass.set('description', doc.description);
+  userClass.set('isSecondary', doc.isSecondary);
+  userClass.set('isDefault', doc.isDefault);
+  userClass.set('isStaff', doc.isStaff);
   userClass.save();
 };
 
-
 Meteor.methods({
-  'userClasses/insert': function(doc) {
-    //TODO(ajax) Be sure set all required values
+  'userClasses/create': function(doc) {
     check(doc, Forms.userClass);
-    console.log(doc);
     var userClass = new UserClass();
     saveUserClass(userClass, doc);
   },

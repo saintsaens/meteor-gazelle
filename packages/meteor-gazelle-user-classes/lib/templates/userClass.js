@@ -1,57 +1,78 @@
-var setFormTypeAndMethod = function(template) {
-  var meteorMethod = "userClasses/insert";
-  var formType = "method";
-  if (template.isLocked.get()) {
-    formType = "readonly";
-  } else if (template.isUpdateForm) {
-    formType = "method-update";
-    meteorMethod = "userClasses/update";
-  }
-  template.formType = new ReactiveVar(formType);
-  template.meteorMethod = new ReactiveVar(meteorMethod);
-};
-
 Template.userClass.onCreated(function () {
-  this.isUpdateForm = this.data.hasOwnProperty('_id') ? true : false;
-  this.formId = this.isUpdateForm ? 'user-class-update-' + this.data._id : 'user-class-create';
-  this.isLocked = new ReactiveVar(this.isUpdateForm);
-  setFormTypeAndMethod(this);
+  this.formType = Template.currentData().type;
+  this.isEditForm = this.formType == 'edit';
+  this.isEditMode = new ReactiveVar(false);
 });
 
 Template.userClass.onRendered(function () {
-
 });
 
 Template.userClass.onDestroyed(function () {
 
 });
 
+var getFormId = function() {
+  var formId = 'user-class-create';
+  if (Template.currentData().doc != null && Template.currentData().doc.hasOwnProperty('_id')) {
+    var formId = 'user-class-update-' + Template.currentData().doc._id;
+  }
+  return formId;
+};
+
+var toggleEditMode = function() {
+  Template.instance().isEditMode.set(!Template.instance().isEditMode.get());
+};
+
 Template.userClass.helpers({
-  isUpdateForm: function () {
-    return Template.instance().isUpdateForm;
+  isEditForm: function () {
+    return Template.instance().isEditForm;
   },
-  isLocked: function() {
-    return Template.instance().isLocked.get();
+  isEditMode: function () {
+    return Template.instance().isEditMode.get();
   },
-  formAttributes: function () {
-    return {
-      id: Template.instance().formId,
-      doc: Template.instance().isUpdateForm ? this : null,
-      type: Template.instance().formType.get(),
-      meteormethod: Template.instance().meteorMethod.get(),
-      schema: Forms.userClass
-    };
+  lockCheckbox: function() {
+    console.log( Template.instance().isEditForm && !Template.instance().isEditMode.get());
+    return Template.instance().isEditForm && !Template.instance().isEditMode.get();
+  },
+  formId: function () {
+    return getFormId();
+  },
+  formSchema: function () {
+    return Forms.userClass;
+  },
+  formType: function () {
+    var type = 'method';
+    if (Template.instance().isEditMode.get()) {
+      type = 'method-update';
+    } else if (Template.instance().isEditForm) {
+      type = 'readonly';
+    }
+    return type;
+  },
+  formMethod: function () {
+    var method = 'userClasses/create';
+    if (Template.instance().isEditForm) {
+      method = 'userClasses/update';
+    }
+    return method;
+  },
+  formDoc: function () {
+    return Template.currentData().doc;
   }
 });
 
 Template.userClass.events({
   'click .user-class-edit': function (event, template) {
-    event.preventDefault();
-    if (template.isLocked().get()) {
-      template.isLocked.set(false)
-    } else {
-      template.isLocked.set(true)
+    toggleEditMode();
+  },
+  'click .user-class-update': function (event, template) {
+    if (AutoForm.validateForm(getFormId())) {
+      toggleEditMode();
     }
+  },
+  'click .user-class-delete': function (event, template) {
+    event.preventDefault();
+    Meteor.call('userClasses/delete', Template.currentData().doc._id);
   }
 });
 
