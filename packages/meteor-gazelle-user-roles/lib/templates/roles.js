@@ -1,6 +1,7 @@
 Template.roles.onCreated(function () {
-  this.subscribe('manage-user-roles');
-  this.roles = Meteor.roles.find({});
+  //this.subscribe('manage-user-roles');
+  //this.roles = Gazelle.roleRegistry.roles;
+  this.roles = [];
 });
 
 Template.roles.onRendered(function () {

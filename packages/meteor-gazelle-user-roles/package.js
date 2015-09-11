@@ -14,6 +14,7 @@ Package.onUse(function (api) {
   ]);
 
   api.addFiles([
+    'lib/registeredRoles.js'
   ]);
 
   api.addFiles([
@@ -25,7 +26,6 @@ Package.onUse(function (api) {
  //   'lib/registered-roles.js',
     'lib/callbacks.js',
     'lib/publications.js',
-    'lib/roles.js'
   ], 'server');
 
   //api.export('RegisteredRoles', 'server');
