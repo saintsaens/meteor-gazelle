@@ -14,7 +14,7 @@ Package.onUse(function (api) {
   ]);
 
   api.addFiles([
-    'lib/registeredRoles.js'
+    'lib/roleRegistry.js'
   ]);
 
   api.addFiles([
