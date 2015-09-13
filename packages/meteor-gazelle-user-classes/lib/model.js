@@ -27,7 +27,7 @@ UserClass = Astro.Class({
     },
     isStaff: {
       type: 'boolean',
-      defaukt: false
+      default: false
     },
     // TODO(ajax) How to validate roles are valid?
     roles: {
@@ -60,6 +60,7 @@ var saveUserClass = function(userClass, doc) {
   userClass.set('isSecondary', doc.isSecondary);
   userClass.set('isDefault', doc.isDefault);
   userClass.set('isStaff', doc.isStaff);
+  userClass.set('roles', doc.roles);
   userClass.save();
 };
 

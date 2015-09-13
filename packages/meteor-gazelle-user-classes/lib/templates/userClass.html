@@ -14,8 +14,8 @@
           <button class='user-class-edit'>Edit</button>
       {{/if}}
     {{ else }}
-        <button type='submit' class='user-class-create'>Create</button>
+        <button class='user-class-create'>Create</button>
     {{/if }}
+    {{> roles type='class' doc=this.doc}}
   {{/autoForm}}
-  {{> roles type='class' doc=this.doc}}
 </template>

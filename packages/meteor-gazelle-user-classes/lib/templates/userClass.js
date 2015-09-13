@@ -1,7 +1,21 @@
+var autoFormHooks = {
+  before: {
+    'method-update': function(doc) {
+      var id = this.docId;
+      console.log("doc id " + id);
+      console.log(Session.get('class:' + id));
+      doc.roles = Session.get('class:' + id);
+      return doc;
+      //this.result(doc); (asynchronous)
+    }
+  }
+};
+
 Template.userClass.onCreated(function () {
   this.formType = Template.currentData().type;
   this.isEditForm = this.formType == 'edit';
   this.isEditMode = new ReactiveVar(false);
+  AutoForm.addHooks(getFormId(), autoFormHooks);
 });
 
 Template.userClass.onRendered(function () {
@@ -31,7 +45,6 @@ Template.userClass.helpers({
     return Template.instance().isEditMode.get();
   },
   lockCheckbox: function() {
-    console.log( Template.instance().isEditForm && !Template.instance().isEditMode.get());
     return Template.instance().isEditForm && !Template.instance().isEditMode.get();
   },
   formId: function () {
