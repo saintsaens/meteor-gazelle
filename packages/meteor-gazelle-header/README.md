@@ -1,1 +1,3 @@
-The home page of meteor-gazelle.
+# meteor-gazelle-header
+
+The site's header.

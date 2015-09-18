@@ -1,7 +1,7 @@
 Package.describe({
   name: 'meteor-gazelle:header',
   version: '0.0.1',
-  summary: 'The site header.',
+  summary: 'The site\'s header.',
   documentation: 'README.md',
   git: 'https://github.com/meteor-gazelle/meteor-gazelle.git'
 });
@@ -14,12 +14,7 @@ Package.onUse(function (api) {
   ];
 
   api.use(packages);
-
   api.imply(packages);
-
-  api.addFiles([
-    'lib/methods.js'
-  ], ['client', 'server']);
 
   api.addFiles([
     'lib/client/nav/nav.html',
