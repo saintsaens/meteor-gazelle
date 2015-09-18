@@ -1,1 +1,3 @@
 Gazelle = {};
+
+Gazelle.schemas = {};

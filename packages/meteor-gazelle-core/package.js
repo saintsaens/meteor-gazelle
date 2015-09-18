@@ -14,6 +14,7 @@ Package.onUse(function (api) {
     'meteor-gazelle:accounts@0.0.1',
     'meteor-gazelle:users@0.0.1',
     'meteor-gazelle:user-roles@0.0.1',
+    'meteor-gazelle:user-classes@0.0.1',
     'meteor-gazelle:header@0.0.1',
     'meteor-gazelle:template-helpers@0.0.1'
   ];

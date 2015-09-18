@@ -1,7 +1,7 @@
 Package.describe({
-  name: 'meteor-gazelle:user-roles',
+  name: 'meteor-gazelle:user-classes',
   version: '0.0.1',
-  summary: 'User Roles',
+  summary: 'This package provides a class based system for',
   documentation: 'README.md',
   git: 'https://github.com/meteor-gazelle/meteor-gazelle.git'
 });
@@ -10,18 +10,14 @@ Package.onUse(function (api) {
   api.versionsFrom('1.1.0.2');
 
   api.use([
-    'meteor-gazelle:lib@0.0.1',
-    'alanning:roles@1.2.12'
+    'meteor-gazelle:lib@0.0.1'
   ]);
 
   api.addFiles([
-    'lib/roles.js'
+    'lib/schemas.js',
+    'lib/userClasses.js',
+    'lib/routes.js'
   ]);
-
-  api.addFiles([
-    'lib/templates/roles.html',
-    'lib/templates/roles.js'
-  ], 'client');
 
   api.addFiles([
     'lib/callbacks.js',
