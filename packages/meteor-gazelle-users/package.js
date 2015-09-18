@@ -14,18 +14,18 @@ Package.onUse(function (api) {
   ]);
 
   api.addFiles([
-    'lib/users.js',
-    'lib/methods.js'
-  ], ['client', 'server']);
+    'lib/users.js'
+  ]);
 
-  api.export(['User']);
 });
 
 Package.onTest(function (api) {
+  /*
   api.use('meteor-gazelle:lib@0.0.1', ['server']);
   api.use('meteor-gazelle:users@0.0.1', ['server']);
   api.use('sanjo:jasmine@0.18.0');
   api.use('velocity:html-reporter@0.8.2');
 
   api.addFiles('tests/jasmine/server/integration/methodTests.js', 'server');
+  */
 });

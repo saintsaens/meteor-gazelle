@@ -33,6 +33,7 @@ Package.onUse(function (api) {
   api.addFiles([
     'lib/core.js',
     'lib/collections.js'
+
   ], ['client', 'server']);
 
   api.export([
