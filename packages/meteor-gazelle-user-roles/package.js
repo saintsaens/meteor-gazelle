@@ -9,10 +9,13 @@ Package.describe({
 Package.onUse(function (api) {
   api.versionsFrom('1.1.0.2');
 
-  api.use([
+  var packages = [
     'meteor-gazelle:lib@0.0.1',
     'alanning:roles@1.2.12'
-  ]);
+  ];
+
+  api.use(packages);
+  api.imply(packages);
 
   api.addFiles([
     'lib/roles.js'

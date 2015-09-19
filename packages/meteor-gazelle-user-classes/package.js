@@ -10,7 +10,8 @@ Package.onUse(function (api) {
   api.versionsFrom('1.1.0.2');
 
   api.use([
-    'meteor-gazelle:lib@0.0.1'
+    'meteor-gazelle:lib@0.0.1',
+    'meteor-gazelle:user-roles@0.0.1'
   ]);
 
   api.addFiles([

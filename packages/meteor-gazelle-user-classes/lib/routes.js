@@ -6,6 +6,5 @@ FlowRouter.route('/user-classes/admin', {
     }
   }],
   action: function(params, queryParams) {
-    console.log("user classes admin");
   }
 });
