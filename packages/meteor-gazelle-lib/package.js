@@ -14,6 +14,9 @@ Package.onUse(function (api) {
     'reactive-var',
     'kadira:flow-router@2.6.0',
     'kadira:blaze-layout@2.1.0',
+    'accounts-password@1.1.1',
+    'useraccounts:flow-routing@1.12.3',
+    'useraccounts:unstyled@1.12.3',
     'maxharris9:classnames@0.0.1',
     'aldeed:collection2@2.5.0',
     'aldeed:simple-schema@1.3.3',
@@ -22,6 +25,7 @@ Package.onUse(function (api) {
     'ongoworks:security@1.2.0',
     'aldeed:template-extension@3.4.3',
     'aldeed:autoform@5.5.1'
+
   ];
 
   api.use(packages);

@@ -10,10 +10,7 @@ Package.onUse(function (api) {
   api.versionsFrom('1.1.0.3');
 
   var packages = [
-    'meteor-gazelle:lib@0.0.1',
-    'accounts-password@1.1.1',
-    'useraccounts:unstyled@1.12.3',
-    'useraccounts:flow-routing@1.12.3'
+    'meteor-gazelle:lib@0.0.1'
   ];
 
   api.use(packages);

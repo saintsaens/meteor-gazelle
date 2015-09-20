@@ -1,6 +1,6 @@
 var autoFormHooks = {
   before: {
-    'insert': function(doc) {
+    'insert': function (doc) {
       var id = this.docId;
       console.log("doc id " + id);
       console.log(Session.get('class:' + id));
@@ -9,6 +9,18 @@ var autoFormHooks = {
       //this.result(doc); (asynchronous)
     }
   }
+};
+
+var getFormId = function () {
+  var formId = 'user-class-insert';
+  if (Template.currentData().doc != null && Template.currentData().doc.hasOwnProperty('_id')) {
+    var formId = 'user-class-update-' + Template.currentData().doc._id;
+  }
+  return formId;
+};
+
+var toggleEditMode = function () {
+  Template.instance().isEditMode.set(!Template.instance().isEditMode.get());
 };
 
 Template.userClass.onCreated(function () {
@@ -25,17 +37,6 @@ Template.userClass.onDestroyed(function () {
 
 });
 
-var getFormId = function() {
-  var formId = 'user-class-create';
-  if (Template.currentData().doc != null && Template.currentData().doc.hasOwnProperty('_id')) {
-    var formId = 'user-class-update-' + Template.currentData().doc._id;
-  }
-  return formId;
-};
-
-var toggleEditMode = function() {
-  Template.instance().isEditMode.set(!Template.instance().isEditMode.get());
-};
 
 Template.userClass.helpers({
   isEditForm: function () {
@@ -44,14 +45,14 @@ Template.userClass.helpers({
   isEditMode: function () {
     return Template.instance().isEditMode.get();
   },
-  lockCheckbox: function() {
+  lockCheckbox: function () {
     return Template.instance().isEditForm && !Template.instance().isEditMode.get();
   },
   formId: function () {
     return getFormId();
   },
   formSchema: function () {
-    return Forms.userClass;
+    return Gazelle.schemas.userClass;
   },
   formType: function () {
     var type = 'method';
@@ -63,7 +64,7 @@ Template.userClass.helpers({
     return type;
   },
   formMethod: function () {
-    var method = 'userClasses/create';
+    var method = 'userClasses/insert';
     if (Template.instance().isEditForm) {
       method = 'userClasses/update';
     }

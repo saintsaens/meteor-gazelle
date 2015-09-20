@@ -22,7 +22,9 @@ Package.onUse(function (api) {
 
   api.addFiles([
     'lib/templates/userClasses.html',
-    'lib/templates/userClasses.js'
+    'lib/templates/userClasses.js',
+    'lib/templates/userClass.html',
+    'lib/templates/userClass.js'
   ], 'client');
 
 });

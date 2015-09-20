@@ -2,7 +2,7 @@ UserClasses = new Mongo.Collection('userClasses');
 UserClasses.attachSchema(Gazelle.schemas.userClass);
 
 if (Meteor.isServer) {
-  UserClasses.permit(['insert', 'update', 'remove']).ifHasRole('super-user').apply();
+  //UserClasses.permit(['insert', 'update', 'remove']).ifHasRole('super-user').apply();
 
   Meteor.publish('user-classes-admin', function () {
     if (Roles.userIsInRole(this.userId, ['super-user'])) {
@@ -28,3 +28,15 @@ if (Meteor.isServer) {
   });
 }
 
+Meteor.methods({
+  'userClasses/insert': function(doc) {
+    check(doc, Gazelle.schemas.userClass);
+    UserClasses.insert(doc);
+  },
+  'userClasses/update': function(doc, docId) {
+
+  },
+  'userClasses/delete': function(docId) {
+
+  }
+});

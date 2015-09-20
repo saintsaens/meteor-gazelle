@@ -30,7 +30,7 @@ Template.roles.helpers({
   isChecked: function (role) {
     if (!Template.instance().isInsert && Template.instance().type === 'class') {
       var defaultRoles = Template.instance().doc.roles;
-      if (defaultRoles.indexOf(role) >= 0) {
+      if (defaultRoles !== undefined && defaultRoles.indexOf(role) >= 0) {
         return 'checked';
       }
     }
