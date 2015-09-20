@@ -1,6 +1,6 @@
 var autoFormHooks = {
   before: {
-    'method-update': function(doc) {
+    'insert': function(doc) {
       var id = this.docId;
       console.log("doc id " + id);
       console.log(Session.get('class:' + id));

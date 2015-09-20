@@ -21,9 +21,9 @@ Package.onUse(function (api) {
   ]);
 
   api.addFiles([
-    'lib/callbacks.js',
-    'lib/publications.js'
-  ], 'server');
+    'lib/templates/userClasses.html',
+    'lib/templates/userClasses.js'
+  ], 'client');
 
 });
 

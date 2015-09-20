@@ -1,0 +1,6 @@
+<template name="userClasses">
+  {{#each userClasses}}
+    {{> userClass type='edit' doc=this}}
+  {{/each}}
+  {{> userClass type='create'}}
+</template>
