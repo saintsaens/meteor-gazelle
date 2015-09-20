@@ -29,6 +29,7 @@ Coding Standards
 ----------------
 * All JavaScript code follows the [Meteor style guide](https://github.com/meteor/meteor/wiki/Meteor-Style-Guide).
 * All CSS code complies to [BEM](http://getbem.com/) standards.
+* All MongoDB styles follow the [Mongo Guidelines](https://github.com/meteor-gazelle/meteor-gazelle/blob/master/doc/dev/mongo_guidelines.md).
 
 Dependencies
 ------------
@@ -44,7 +45,8 @@ Running tests
 ------------
     # one-time setup
     curl https://install.meteor.com | /bin/sh
-    npm install -g spacejam eslint
+    npm install -g velocity-cli eslint
+    gem install scss-lint
     export PATH="$HOME/.meteor:$PATH"
     cp settings.json.template settings.json
 
@@ -55,3 +57,5 @@ Running tests
     ./run_tests.sh -t
     # optionally, just lint
     ./run_tests.sh -l
+    # (optional) install git hook to automatically run test suite before pushing to remote.
+    cd scripts/ && ./install_git_hooks.sh

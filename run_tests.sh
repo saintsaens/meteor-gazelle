@@ -34,20 +34,24 @@ function fail {
 function run_tests {
   # ensure environment is set up
   which meteor > /dev/null || fail "meteor command not found; run 'curl https://install.meteor.com | /bin/sh' to install meteor"
-  which spacejam > /dev/null || fail "spacejam command not found; run 'npm install -g spacejam' to install spacejam"
+  which velocity > /dev/null || fail "velocity command not found; run 'npm install -g velocity-cli' to install velocity"
   [ -f settings.json ] || fail "settings.json not found; run 'cp settings.json.template settings.json'"
 
   # do the thing
-  spacejam test-packages --settings settings.json
+  velocity test-package ./packages/* --settings settings.json --ci --release velocity:METEOR@1.1.0.3_1
 }
 
 function run_lint {
   # ensure environment is set up
   which eslint > /dev/null || fail "eslint command not found; run 'npm install -g eslint' to install eslint"
+  which scss-lint > /dev/null || fail "scss-lint command not found; run gem install scss-lint to install scss-lint"
 
   # do the thing
   echo "Running eslint..."
   eslint .
+
+  echo "Running scss-lint..."
+  scss-lint .
 }
 
 process_options $@
