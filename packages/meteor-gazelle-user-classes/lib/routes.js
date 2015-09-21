@@ -1,5 +1,5 @@
-FlowRouter.route('/user-classes/admin', {
-  name: 'user-classes/admin',
+FlowRouter.route('/admin/user-classes', {
+  name: 'admin/user-classes',
   triggersEnter: [AccountsTemplates.ensureSignedIn],
   action: function(params, queryParams) {
     BlazeLayout.render('layout', {

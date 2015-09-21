@@ -34,3 +34,10 @@ Gazelle.schema.userClass = new SimpleSchema({
     optional: true
   }
 });
+
+Gazelle.schema.userClasses = new SimpleSchema({
+  userClasses: {
+    type: [String],
+    optional: true
+  }
+});

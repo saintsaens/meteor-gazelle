@@ -1,3 +1,5 @@
+Meteor.users.attachSchema(Gazelle.schema.user);
+
 AccountsTemplates.configure({
   defaultLayout: 'layout',
   defaultContentRegion: 'main',

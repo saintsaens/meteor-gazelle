@@ -26,11 +26,6 @@ Package.onUse(function (api) {
     'lib/templates/roles.js'
   ], 'client');
 
-  api.addFiles([
-    'lib/callbacks.js',
-    'lib/publications.js'
-  ], 'server');
-
 });
 
 Package.onTest(function (api) {

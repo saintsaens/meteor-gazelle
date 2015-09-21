@@ -60,5 +60,3 @@ Gazelle.schema.user = new SimpleSchema({
     optional: true
   }
 });
-
-Meteor.users.attachSchema(Gazelle.schema.user);

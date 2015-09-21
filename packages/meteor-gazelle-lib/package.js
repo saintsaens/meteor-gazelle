@@ -24,7 +24,8 @@ Package.onUse(function (api) {
     'meteorhacks:subs-manager@1.6.2',
     'ongoworks:security@1.2.0',
     'aldeed:template-extension@3.4.3',
-    'aldeed:autoform@5.5.1'
+    'aldeed:autoform@5.5.1',
+    'kadira:debug@2.2.3'
 
   ];
 

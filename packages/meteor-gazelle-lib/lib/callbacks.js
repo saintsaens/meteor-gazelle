@@ -49,14 +49,13 @@ Gazelle.callbacks.run = function (hook, item, constant) {
   if (typeof callbacks !== "undefined" && !!callbacks.length) { // if the hook exists, and contains callbacks to run
 
     return callbacks.reduce(function (result, callback) {
-      console.log(callback.name);
-      console.log(item);
-      console.log(constant);
+      return callback(result, constant);
       return callback(result, constant);
     }, item);
 
   } else { // else, just return the item unchanged
     return item;
+
   }
 };
 
