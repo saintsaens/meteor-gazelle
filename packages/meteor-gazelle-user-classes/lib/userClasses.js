@@ -1,10 +1,30 @@
 UserClasses = new Mongo.Collection('userClasses');
 UserClasses.attachSchema(Gazelle.schema.userClass);
-
 Meteor.users.attachSchema(Gazelle.schema.userClasses);
 
+var userIsInRoleOriginal = Roles.userIsInRole;
+Roles.userIsInRole = function (user, roles, group) {
+  var userId = Util.getId(user);
+  var isInRole = false;
+
+  if (userId) {
+    isInRole = userIsInRoleOriginal.apply(userIsInRoleOriginal, [user, roles, group]);
+
+    if (!isInRole) {
+      var result = Meteor.users.findOne({_id: userId}, {fields: {userClasses: 1}});
+    }
+  }
+  return isInRole;
+};
+
+if (Meteor.isClient) {
+  Meteor.subscribe('user-classes');
+}
+
 if (Meteor.isServer) {
-  //UserClasses.permit(['insert', 'update', 'remove']).ifHasRole('super-user').apply();
+  Meteor.publish(null, function () {
+    return Meteor.users.find({_id: this.userId}, {fields: {userClasses: 1}});
+  });
 
   Meteor.publish('user-classes-admin', function () {
     if (Roles.userIsInRole(this.userId, ['super-user'])) {
@@ -14,6 +34,12 @@ if (Meteor.isServer) {
     return;
   });
 
+  Meteor.publish('user-classes', function () {
+    var result = Meteor.users.findOne({_id: this.userId}, {fields: {userClasses: 1}});
+    if (Array.isArray(result.userClasses)) {
+      return UserClasses.find({_id: {$in: [result.userClasses]}});
+    }
+  });
 
   Meteor.users.after.insert(function (userId, doc) {
     var defaultClasses = UserClasses.find({isDefault: true}, {fields: {_id: 1}});

@@ -26,7 +26,6 @@ Package.onUse(function (api) {
     'aldeed:template-extension@3.4.3',
     'aldeed:autoform@5.5.1',
     'kadira:debug@2.2.3'
-
   ];
 
   api.use(packages);
@@ -34,10 +33,12 @@ Package.onUse(function (api) {
 
   api.addFiles([
     'lib/gazelle.js',
-    'lib/callbacks.js'
+    'lib/callbacks.js',
+    'lib/util.js'
   ]);
 
   api.export('Gazelle');
+  api.export('Util');
 
 });
 

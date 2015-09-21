@@ -31,7 +31,8 @@ Gazelle.schema.userClass = new SimpleSchema({
   roles: {
     type: [String],
     label: 'The roles that this class provides',
-    optional: true
+    optional: true,
+    index: true
   }
 });
 
