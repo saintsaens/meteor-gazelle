@@ -1,12 +1,20 @@
+var setRoles = function (doc) {
+  var id = this.docId;
+  console.log("doc id " + id);
+  console.log(Session.get('class:' + id));
+  doc.roles = Session.get('class:' + id);
+  return doc;
+};
+
 var autoFormHooks = {
   before: {
-    'insert': function (doc) {
-      var id = this.docId;
-      console.log("doc id " + id);
-      console.log(Session.get('class:' + id));
-      doc.roles = Session.get('class:' + id);
-      return doc;
+    'method': function (doc) {
+      return setRoles(doc);
       //this.result(doc); (asynchronous)
+    },
+    'method-update': function (doc) {
+      doc.$set.roles = Session.get('class:' + this.docId);
+      return doc;
     }
   }
 };
@@ -37,7 +45,6 @@ Template.userClass.onDestroyed(function () {
 
 });
 
-
 Template.userClass.helpers({
   isEditForm: function () {
     return Template.instance().isEditForm;
@@ -52,7 +59,7 @@ Template.userClass.helpers({
     return getFormId();
   },
   formSchema: function () {
-    return Gazelle.schemas.userClass;
+    return Gazelle.schema.userClass;
   },
   formType: function () {
     var type = 'method';

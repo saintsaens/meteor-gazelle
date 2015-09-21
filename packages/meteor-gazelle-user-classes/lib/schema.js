@@ -1,6 +1,6 @@
 // TODO(ajax) How to handle ranking
 
-Gazelle.schemas.userClass = new SimpleSchema({
+Gazelle.schema.userClass = new SimpleSchema({
   title: {
     type: String,
     label: 'The class title'

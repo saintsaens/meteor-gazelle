@@ -1,5 +1,5 @@
 Gazelle = {
-  schemas: {}
+  schema: {}
 };
 
 if (Meteor.isClient) {

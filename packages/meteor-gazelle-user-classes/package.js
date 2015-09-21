@@ -15,7 +15,7 @@ Package.onUse(function (api) {
   ]);
 
   api.addFiles([
-    'lib/schemas.js',
+    'lib/schema.js',
     'lib/userClasses.js',
     'lib/routes.js'
   ]);
