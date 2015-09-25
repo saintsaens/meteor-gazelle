@@ -46,7 +46,6 @@ meteor-gazelle:lib@0.0.1
 meteor-gazelle:permissions@0.0.1
 meteor-gazelle:template-helpers@0.0.1
 meteor-gazelle:theme@0.0.1
-meteor-gazelle:user-classes@0.0.1
 meteor-gazelle:user-roles@0.0.1
 meteor-gazelle:users@0.0.1
 meteor-platform@1.2.2
