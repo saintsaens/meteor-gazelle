@@ -1,32 +1,8 @@
-var groupSchema = new SimpleSchema({
-  title: {
-    type: String,
-    label: 'The group\'s title'
-  },
-  description: {
-    type: String,
-    label: 'The group\'s description'
-  },
-  roles: {
-    type: [String],
-    label: 'The roles in this group',
-    custom: function () {
-      debugger;
-      return true;
-    }
-  }
-});
-
-var Role = function (title, description, permissions) {
-  this.title = null;
-  this.description = null;
-  this.permissions = [];
-};
+Meteor.users.attachSchema(userSchema);
 
 Permissions = {
-  schemas: {},
-  roles: [],
   permissions: [],
+  roles: {},
   check: function (userId, role, permissions, callbacks) {
     check(userId, String);
     check(role, String);
@@ -34,66 +10,135 @@ Permissions = {
 
     var results = Meteor.users.findOne(userId, {
       fields: {
-        "permissions.$.enabledRoles": 1,
-        "permissions.$.disabledRoles": 1,
-        "permissions.$.enabledPermissions": 1,
-        "permissions.$.disabledPermissions": 1,
-        "permissions.$.groups": 1
+        permissions: 1
       }
     });
 
     if (results === undefined) {
-      Meteor.Error('not-found');
+      throw new Meteor.Error('User not found');
     }
 
     debugger;
   },
   registerRoles: function (roles) {
-    check(roles)
+    var registeredRoles = _.intersection(_.keys(this.roles), _.keys(roles));
+    if (registeredRoles.length > 0) {
+      throw new Meteor.Error('role-exists', 'One or more of these roles have already been registered', registeredRoles)
+    }
+    for (role in roles) {
+      // TODO Improve validation
+      // TODO Add titles and descriptions to a permission
+      check(role, String);
+      check(roles[role], {
+        description: String,
+        permissions: [String]
+      });
+
+      // TODO Change this so permissions between roles don't need to be unique
+      var registeredPermission = _.intersection(this.permissions, roles[role].permissions);
+      if (registeredPermission.length > 0) {
+        throw new Meteor.Error('permission-exists', 'One or more of these permissions already exist in a registered role', registeredPermission)
+      }
+
+      this.roles[role] = roles[role];
+      this.permissions.push(roles[role].permissions);
+    }
+  },
+  addRoles: function (userId, roles) {
+    check(userId, String);
+    check(roles, [String]);
+    Meteor.users.update({_id: userId}, {$push: {'permissions.$.roles': roles}});
+  },
+  removeRoles: function (userId, roles) {
+    check(userId, String);
+    check(roles, [String]);
+    Meteor.users.update({_id: userId}, {$pull: {'permissions.$.roles': roles}});
+  },
+  isInRoles: function (userId, roles) {
+    check(userId, String);
+    check(roles, [String]);
+  },
+  addEnabledPermissions: function (userId, permissions) {
+    check(userId, String);
+    check(permissions, [String]);
+  },
+  removeEnabledPermissions: function (userId, permissions) {
+    check(userId, String);
+    check(permissions, [String]);
+  },
+  hasEnabledPermissions: function (userId, permissions) {
+    check(userId, String);
+    check(permissions, [String]);
+  },
+  addDisabledPermissions: function (userId, permissions) {
+    check(userId, String);
+    check(permissions, [String]);
+  },
+  removeDisabledPermissions: function (userId, permissions) {
+    check(userId, String);
+    check(permissions, [String]);
+  },
+  hasDisabledPermissions: function (userId, permissions) {
+    check(userId, String);
+    check(permissions, [String]);
+  },
+  addGroups: function (userId, groupIds) {
+    check(userId, String);
+    check(permissions, [String]);
+  },
+  removeGroups: function (userId, groupIds) {
+    check(userId, String);
+    check(permissions, [String]);
+  },
+  isInGroups: function (userId, groupIds) {
+    check(userId, String);
+    check(permissions, [String]);
   }
 };
 
-Permissions.schemas.group = groupSchema;
 
-Permissions.check(userId, 'fireman', ['save-cats'], callbacks);
+/*
+ Permissions.schemas.group = groupSchema;
 
-Permissions.registerRoles(role);
+ Permissions.check(userId, 'fireman', ['save-cats'], callbacks);
 
-var fireman = Permissions.createRole('fireman', 'description', {
-  'saves-cats': {
-    title: 'Saves cats',
-    description: 'By climbing trees'
-  }
-});
+ Permissions.registerRoles(role);
 
-var group = Permissions.createRoleUsing('firewoman', ['save-cats'], {}).createRoleFrom()
+ var fireman = Permissions.createRole('fireman', 'description', {
+ 'saves-cats': {
+ title: 'Saves cats',
+ description: 'By climbing trees'
+ }
+ });
 
-Permissions.addAction(userId, ['save-cats']);
-Permissions.removeAction(userId, ['save-cats']);
-Permissions.disableAction(userId, ['fireman']);
-Permissions.addRole(userId, ['fireman']);
-Permissions.removeRole(userId, ['fireman']);
-Permissions.disableRole(userId, ['fireman']);
-Permissions.addGroup(userId, ['civic servant']);
-Permissions.removeGroup(userId, ['civic servant']);
+ var group = Permissions.createRoleUsing('firewoman', ['save-cats'], {}).createRoleFrom()
 
-Permissions.actions
-Permissions.roles
-Permissions.getAction('saves-cats')
-Permissions.getAction('saves-cats').title
-Permissions.getAction('saves-cats').description
-Permissions.getRole('saves-cats')
-Permissions.getRole('saves-cats').title
-Permissions.getRole('saves-cats').description
-Permissions.getRole('saves-cats').actions
+ Permissions.addAction(userId, ['save-cats']);
+ Permissions.removeAction(userId, ['save-cats']);
+ Permissions.disableAction(userId, ['fireman']);
+ Permissions.addRole(userId, ['fireman']);
+ Permissions.removeRole(userId, ['fireman']);
+ Permissions.disableRole(userId, ['fireman']);
+ Permissions.addGroup(userId, ['civic servant']);
+ Permissions.removeGroup(userId, ['civic servant']);
 
-
-Permissions.getUserActions
-Permissions.getUserRoles
-Permissions.getUserGroups
+ Permissions.actions
+ Permissions.roles
+ Permissions.getAction('saves-cats')
+ Permissions.getAction('saves-cats').title
+ Permissions.getAction('saves-cats').description
+ Permissions.getRole('saves-cats')
+ Permissions.getRole('saves-cats').title
+ Permissions.getRole('saves-cats').description
+ Permissions.getRole('saves-cats').actions
 
 
-/**
+ Permissions.getUserActions
+ Permissions.getUserRoles
+ Permissions.getUserGroups
+
+
+ /**
 
  Action based permissons
 
