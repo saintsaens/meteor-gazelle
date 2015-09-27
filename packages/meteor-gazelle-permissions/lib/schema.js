@@ -1,46 +1,43 @@
 //TODO Add indexes
-
-groupSchema = new SimpleSchema({
+Gazelle.schema.userClass = new SimpleSchema({
   title: {
     type: String,
-    label: 'The group\'s title'
+    label: 'The class\'s title'
   },
   description: {
     type: String,
-    label: 'The group\'s description'
+    label: 'The class\'s description'
   },
   roles: {
     type: [String],
-    label: 'The roles in this group'
+    label: 'The roles in this class'
   }
 });
 
-permissionsSchema = new SimpleSchema({
-  enabledPermissions: {
-    type: [String],
-    label: 'Manually enabled permissions',
-    optional: true
-  },
-  disabledPermissions: {
-    type: [String],
-    label: 'Manually disabled permissions',
-    optional: true
-  },
-  roles: {
-    type: [String],
-    label: 'The user\'s roles',
-    optional: true
-  },
-  groups: {
-    type: [String],
-    label: 'The user\'s groups',
-    optional: true
-  }
-});
-
-userSchema = new SimpleSchema({
+Gazelle.schema.userPermissions = new SimpleSchema({
   permissions: {
-    type: permissionsSchema,
+    type: new SimpleSchema({
+      enabledPermissions: {
+        type: [String],
+        label: 'Manually enabled permissions',
+        optional: true
+      },
+      disabledPermissions: {
+        type: [String],
+        label: 'Manually disabled permissions',
+        optional: true
+      },
+      roles: {
+        type: [String],
+        label: 'The user\'s roles',
+        optional: true
+      },
+      classs: {
+        type: [String],
+        label: 'The user\'s classes',
+        optional: true
+      }
+    }),
     optional: true
   }
 });

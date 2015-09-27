@@ -22,6 +22,13 @@ Package.onUse(function (api) {
     'lib/permissions.js'
   ]);
 
+  api.addFiles([
+    'lib/templates/userClasses.html',
+    'lib/templates/userClasses.js',
+    'lib/templates/userClass.html',
+    'lib/templates/userClass.js'
+  ], 'client');
+
   api.export('Permissions');
 
 });

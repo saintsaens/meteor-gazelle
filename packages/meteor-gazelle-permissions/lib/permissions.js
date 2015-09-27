@@ -1,4 +1,4 @@
-Meteor.users.attachSchema(userSchema);
+Meteor.users.attachSchema(Gazelle.schema.user);
 
 Permissions = {
   permissions: [],
@@ -82,23 +82,32 @@ Permissions = {
     check(userId, String);
     check(permissions, [String]);
   },
-  addGroups: function (userId, groupIds) {
+  addClasss: function (userId, classIds) {
     check(userId, String);
     check(permissions, [String]);
   },
-  removeGroups: function (userId, groupIds) {
+  removeClasss: function (userId, classIds) {
     check(userId, String);
     check(permissions, [String]);
   },
-  isInGroups: function (userId, groupIds) {
+  isInClasss: function (userId, classIds) {
     check(userId, String);
     check(permissions, [String]);
+  },
+  createClass: function(classObj) {
+
+  },
+  updateClass: function(classId, classObj) {
+
+  },
+  removeClass: function(classId) {
+
   }
 };
 
 
 /*
- Permissions.schemas.group = groupSchema;
+ Permissions.schemas.class = classSchema;
 
  Permissions.check(userId, 'fireman', ['save-cats'], callbacks);
 
@@ -111,7 +120,7 @@ Permissions = {
  }
  });
 
- var group = Permissions.createRoleUsing('firewoman', ['save-cats'], {}).createRoleFrom()
+ var class = Permissions.createRoleUsing('firewoman', ['save-cats'], {}).createRoleFrom()
 
  Permissions.addAction(userId, ['save-cats']);
  Permissions.removeAction(userId, ['save-cats']);
@@ -119,8 +128,8 @@ Permissions = {
  Permissions.addRole(userId, ['fireman']);
  Permissions.removeRole(userId, ['fireman']);
  Permissions.disableRole(userId, ['fireman']);
- Permissions.addGroup(userId, ['civic servant']);
- Permissions.removeGroup(userId, ['civic servant']);
+ Permissions.addClass(userId, ['civic servant']);
+ Permissions.removeClass(userId, ['civic servant']);
 
  Permissions.actions
  Permissions.roles
@@ -135,7 +144,7 @@ Permissions = {
 
  Permissions.getUserActions
  Permissions.getUserRoles
- Permissions.getUserGroups
+ Permissions.getUserClasss
 
 
  /**
@@ -147,7 +156,7 @@ Permissions = {
  - Roles consist of action
 
  User based
- - Role group consist of roles. They have titles and descriptions.
+ - Role class consist of roles. They have titles and descriptions.
  - Users can be assigned individual actions
  -
 
