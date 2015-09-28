@@ -92,7 +92,7 @@ Template.userClass.events({
     }
   },
   'click .user-class-delete': function (event, template) {
-    event.preventDefault();
+    event.preventDefault();nbo
     Meteor.call('userClasses/delete', Template.currentData().doc._id);
   }
 });

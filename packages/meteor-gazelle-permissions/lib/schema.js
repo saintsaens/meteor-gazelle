@@ -4,6 +4,10 @@ Gazelle.schema.userClass = new SimpleSchema({
     type: String,
     label: 'The class\'s title'
   },
+  shortTitle: {
+    type: String,
+    label: 'The class\'s title short title'
+  },
   description: {
     type: String,
     label: 'The class\'s description'
@@ -11,6 +15,18 @@ Gazelle.schema.userClass = new SimpleSchema({
   roles: {
     type: [String],
     label: 'The roles in this class'
+  },
+  isSecondary: {
+    type: Boolean,
+    label: 'This is a secondary class'
+  },
+  isDefault: {
+    type: Boolean,
+    label: 'This is a default class'
+  },
+  isVisibleOnStaffPage: {
+    type: Boolean,
+    label: 'Users with this class are listed on the staff page'
   }
 });
 

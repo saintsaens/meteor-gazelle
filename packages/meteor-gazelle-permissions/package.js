@@ -19,7 +19,8 @@ Package.onUse(function (api) {
 
   api.addFiles([
     'lib/schema.js',
-    'lib/permissions.js'
+    'lib/permissions.js',
+    'lib/routes.js'
   ]);
 
   api.addFiles([
