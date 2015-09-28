@@ -10,8 +10,7 @@ Package.onUse(function (api) {
   api.versionsFrom('1.1.0.3');
 
   var packages = [
-    'meteor-gazelle:lib',
-    'meteor-gazelle:user-roles@0.0.1'
+    'meteor-gazelle:lib'
   ];
 
   api.use(packages);

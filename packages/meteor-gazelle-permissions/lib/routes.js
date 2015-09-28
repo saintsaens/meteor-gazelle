@@ -7,4 +7,4 @@ FlowRouter.route('/admin/user-classes', {
       main: 'userClasses'
     });
   }
-});
+})

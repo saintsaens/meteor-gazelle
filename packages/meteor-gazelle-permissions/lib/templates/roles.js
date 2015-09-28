@@ -8,7 +8,7 @@ Template.roles.onCreated(function () {
   //TODO(ajax) Validation for user or class. How to handle template level validation?
   this.type = Template.currentData().type;
   this.doc = Template.currentData().doc;
-  this.roles = Gazelle.roleRegistry.roles;
+  this.roles = Permissions.roles;
   this.isInsert = this.doc === undefined || this.doc._id === undefined ? true : false;
   this.selectedRoles = !this.isInsert && Array.isArray(this.doc.roles) ? this.doc.roles.slice() : [];
   if (this.selectedRoles.length > 0) {

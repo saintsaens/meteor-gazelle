@@ -1,4 +1,6 @@
 Meteor.users.attachSchema(Gazelle.schema.user);
+UserClasses = new Mongo.Collection('userClasses');
+UserClasses.attachSchema(Gazelle.schema.userClass);
 
 Permissions = {
   permissions: [],
@@ -30,6 +32,7 @@ Permissions = {
       // TODO Add titles and descriptions to a permission
       check(role, String);
       check(roles[role], {
+        title: String,
         description: String,
         permissions: [String]
       });
@@ -105,59 +108,56 @@ Permissions = {
   }
 };
 
+Permissions.registerRoles({
+  fireman: {
+    title: "A fireman",
+    description: "Does fireman things",
+    permissions: ["put-out-fires", "save-cats"]
+  }
+});
 
-/*
- Permissions.schemas.class = classSchema;
+if (Meteor.isClient) {
+  //Meteor.subscribe('user-classes');
+}
 
- Permissions.check(userId, 'fireman', ['save-cats'], callbacks);
+if (Meteor.isServer) {
+  Meteor.publish(null, function () {
+    return Meteor.users.find({_id: this.userId}, {fields: {permissions: 1}});
+  });
 
- Permissions.registerRoles(role);
+  Meteor.publish('user-classes-admin', function () {
+      return UserClasses.find();
+///    this.error(new Meteor.Error('invalid-roles'));
+  });
 
- var fireman = Permissions.createRole('fireman', 'description', {
- 'saves-cats': {
- title: 'Saves cats',
- description: 'By climbing trees'
- }
- });
+  Meteor.publish('user-classes', function () {
+    var result = Meteor.users.findOne({_id: this.userId}, {fields: {userClasses: 1}});
+    if (Array.isArray(result.userClasses)) {
+      return UserClasses.find({_id: {$in: [result.userClasses]}});
+    }
+  });
 
- var class = Permissions.createRoleUsing('firewoman', ['save-cats'], {}).createRoleFrom()
+  Meteor.users.after.insert(function (userId, doc) {
+    //TODO This function can be writen with less lines
+    var defaultClasses = UserClasses.find({isDefault: true}, {fields: {_id: 1}});
+    var classIds = [];
+    defaultClasses.forEach(function (defaultClass) {
+      classIds.push(defaultClass._id);
+    });
+    Meteor.users.update({_id: doc._id}, {$set: {userClasses: classIds}});
+  });
+}
 
- Permissions.addAction(userId, ['save-cats']);
- Permissions.removeAction(userId, ['save-cats']);
- Permissions.disableAction(userId, ['fireman']);
- Permissions.addRole(userId, ['fireman']);
- Permissions.removeRole(userId, ['fireman']);
- Permissions.disableRole(userId, ['fireman']);
- Permissions.addClass(userId, ['civic servant']);
- Permissions.removeClass(userId, ['civic servant']);
-
- Permissions.actions
- Permissions.roles
- Permissions.getAction('saves-cats')
- Permissions.getAction('saves-cats').title
- Permissions.getAction('saves-cats').description
- Permissions.getRole('saves-cats')
- Permissions.getRole('saves-cats').title
- Permissions.getRole('saves-cats').description
- Permissions.getRole('saves-cats').actions
-
-
- Permissions.getUserActions
- Permissions.getUserRoles
- Permissions.getUserClasss
-
-
- /**
-
- Action based permissons
-
- Code
- - Users can do a certain action
- - Roles consist of action
-
- User based
- - Role class consist of roles. They have titles and descriptions.
- - Users can be assigned individual actions
- -
-
- */
+Meteor.methods({
+  'userClasses/insert': function (doc) {
+    check(doc, Gazelle.schema.userClass);
+    UserClasses.insert(doc);
+  },
+  'userClasses/update': function (doc, docId) {
+    check(doc, Gazelle.schema.userClass);
+    UserClasses.update(docId, {$set: doc.$set});
+  },
+  'userClasses/delete': function (docId) {
+    UserClasses.remove(docId);
+  }
+});
